@@ -585,6 +585,7 @@ export const postSeatallocation = (seats) => (dispatch) => {
         sid: seats.sid,
         room: seats.room
     }
+    
     console.log('SeatAllocation: ', newSeatAllocation);
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -615,9 +616,10 @@ export const postSeatallocation = (seats) => (dispatch) => {
         .then(response => { alert("Seat has been alloted Successfully!!"); dispatch(addseatallocation(response)); dispatch(fetchStudents()); dispatch(fetchArchitecture()); })
         .catch(error => {
             console.log('Post seats ', error.message);
-            alert('Your SealAllocation could not be added\nError: ' + error.message);
+            alert('Your Seat Allocation could not be added\nError: ' + error.message);
         })
 }
+
 
 export const updateSeatAllocation = (seat) => (dispatch) => {
     const newSeat = {

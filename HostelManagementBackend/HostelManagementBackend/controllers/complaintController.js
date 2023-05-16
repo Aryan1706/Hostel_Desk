@@ -42,7 +42,7 @@ async function mailStudent(complaint){
     const transporter = nodemailer.createTransport({
         service : "gmail",
         host: "smtp.gmail.com",
-        port: 465,
+        port: 587,//465,
         secure: true,
         auth: {
             user: process.env.USERNAME,
@@ -74,12 +74,14 @@ async function mailStudent(complaint){
 // @route   POST /complaints/
 // @access  Private
 const postComplaint = asyncHandler(async (req, res) => {
-
     const {title, description, eid} = req.body
+    // console.log("Data taken")
     const emp = await Employee.findOne({eid})
     if(emp){
+        // console.log("emp find")
         const user = await User.findById(req.user.id)
         const student = await Student.findOne({sid : user.username})
+
         if(student.room == 0){
             res.status(400).json("Invalid Request")
             throw new Error("Invalid Request")
@@ -108,10 +110,10 @@ const postComplaint = asyncHandler(async (req, res) => {
             throw new Error("Internal Server Error")
         }
     }else{
+        console.log("emp not find")
         res.status(400).json('Invalid Employee Id')
         throw new Error("invalid Employee Id")
     }
-
 })
 
 // @desc    Get Complaint details
@@ -171,7 +173,7 @@ const updateComplaint = asyncHandler(async (req, res) => {
         }
 
         let complaint = await Complaint.findByIdAndUpdate(req.params.complaintId, 
-                                            {$set: data}, { new: true })
+                                           {$set: data}, { new: true })
         
         if(complaint){
             mailStudent(complaint).catch(console.error)

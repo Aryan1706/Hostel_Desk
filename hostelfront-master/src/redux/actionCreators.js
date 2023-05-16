@@ -208,7 +208,6 @@ export const postEmployee = (employee) => (dispatch) => {
     console.log('Employee: ', JSON.stringify(newEmployee));
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
-
     return fetch(baseUrl + 'employees', {
         method: 'POST',
         body: JSON.stringify(newEmployee),
@@ -235,6 +234,7 @@ export const postEmployee = (employee) => (dispatch) => {
         .then(response => { alert("Employee has been added Successfully!!"); dispatch(addEmployee(response)); dispatch(fetchEmployees()); })
         .catch(error => {
             console.log('Post employees ', error.message);
+           
             alert('Your employee could not be added\nError: ' + error.message);
         })
 }
@@ -617,6 +617,7 @@ export const postSeatallocation = (seats) => (dispatch) => {
         .catch(error => {
             console.log('Post seats ', error.message);
             alert('Your Seat Allocation could not be added\nError: ' + error.message);
+            alert(error.message);
         })
 }
 
@@ -737,6 +738,10 @@ export const addComplaint = (student) => ({
     payload: student
 });
 
+
+
+
+
 export const postComplaint = (complaint) => (dispatch) => {
 
     const newComplaint = {
@@ -747,7 +752,7 @@ export const postComplaint = (complaint) => (dispatch) => {
     console.log('Complaint: ', newComplaint);
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
-
+       
     return fetch(baseUrl + 'complaints', {
         method: 'POST',
         body: JSON.stringify(newComplaint),
@@ -778,6 +783,11 @@ export const postComplaint = (complaint) => (dispatch) => {
             alert('Your complaint could not be added\nError: ' + error.message);
         })
 }
+
+
+
+
+
 
 export const fetchComplaints = () => (dispatch) => {
     dispatch(complaintsLoading(true));

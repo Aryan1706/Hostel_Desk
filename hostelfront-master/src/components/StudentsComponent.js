@@ -1,59 +1,60 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 import { Loading } from './LoadingComponent';
-
-export default function UnresolvedComplaints({ complaints, isLoading, errMess }) {
-
+export default function StudentView({ students, isLoading, errMess }) {
   const [datatable] = React.useState({
     columns: [
       {
-        label: 'Student Id',
-        field: 'sid',
-        width: 130,
+        label: 'Name',
+        field: 'name',
+        width: 150,
         attributes: {
           'aria-controls': 'DataTable',
           'aria-label': 'Name',
         },
       },
       {
-        label: 'Complaint Date',
-        field: 'date',
-        width: 180,
-        sort : 'asc',
+        label: 'Reg. No.',
+        field: 'sid',
+        sort: 'disabled',
+        width: 100,
       },
       {
         label: 'Room No.',
         field: 'room',
-        width: 130,
-      },
-      {
-        label: 'Employee Id',
-        field: 'eid',
-        width: 130,
-      },
-      {
-        label: 'Title',
-        field: 'title',
+        sort: 'disabled',
         width: 100,
       },
       {
-        label: 'Complaint',
-        field: 'description',
-        width: 350,
+        label: 'Mobile No.',
+        field: 'mobile',
+        width: 150,
+      },
+      {
+        label: 'Program',
+        field: 'program',
+        width: 150,
+      },
+      {
+        label: 'Reference No.',
+        field: 'reference',
+        sort: 'disabled',
+        width: 200,
+      },
+      {
+        label: 'P. Address',
+        field: 'pAddress',
+        sort: 'disabled',
+        width: 200
       },
       {
         label: 'Actions',
         field: 'actions',
-        default: <div>
-          <i className="fa-sharp fa-light fa-badge-check" onClick={() => this.toggleResolve}></i>
-          {/* //</div> onClick={() => this.toggleResolve}></i> */}
-          <i className="fa fa-trash-alt delete"></i>
-        </div>,
-        width: 100,
-      },
-
+        sort: 'disabled',
+        width: 100
+      }
     ],
-    rows: complaints.filter(complaint => complaint.resolved === false)
+    rows: students,
   });
   if (isLoading) {
     return (<Loading />);
@@ -66,7 +67,7 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
       <div>
         <div className="row">
           <div className="col-12 container-fluid">
-            <h2 className="feature-heading ">Unresolved Complaints</h2>
+            <h2 className="feature-heading ">Students</h2>
             <hr className="feature-line" />
           </div>
         </div>
@@ -87,4 +88,5 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
       </div>
     );
   }
+
 }

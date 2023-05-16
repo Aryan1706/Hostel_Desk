@@ -1,59 +1,62 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 import { Loading } from './LoadingComponent';
-
-export default function UnresolvedComplaints({ complaints, isLoading, errMess }) {
+export default function EmployeeView({ employees, isLoading, errMess }) {
 
   const [datatable] = React.useState({
+
     columns: [
       {
-        label: 'Student Id',
-        field: 'sid',
-        width: 130,
+        label: 'Name',
+        field: 'name',
+        width: 100,
         attributes: {
           'aria-controls': 'DataTable',
           'aria-label': 'Name',
         },
       },
       {
-        label: 'Complaint Date',
-        field: 'date',
-        width: 180,
-        sort : 'asc',
-      },
-      {
-        label: 'Room No.',
-        field: 'room',
-        width: 130,
-      },
-      {
-        label: 'Employee Id',
+        label: 'Employee ID',
         field: 'eid',
-        width: 130,
-      },
-      {
-        label: 'Title',
-        field: 'title',
         width: 100,
       },
       {
-        label: 'Complaint',
-        field: 'description',
-        width: 350,
+        label: 'Gender',
+        field: 'gender',
+        width: 100,
+      },
+      {
+        label: 'Designation',
+        field: 'designation',
+
+        width: 100,
+      },
+      {
+        label: 'Mobile',
+        field: 'mobile',
+        sort: 'disabled',
+        width: 100,
+      },
+      {
+        label: 'Address',
+        field: 'address',
+
+        width: 150,
       },
       {
         label: 'Actions',
         field: 'actions',
-        default: <div>
-          <i className="fa-sharp fa-light fa-badge-check" onClick={() => this.toggleResolve}></i>
-          {/* //</div> onClick={() => this.toggleResolve}></i> */}
-          <i className="fa fa-trash-alt delete"></i>
-        </div>,
+        sort: 'disabled',
         width: 100,
-      },
+        default: <div>
+          <i className="fa fa-pencil-alt edit mr-2" onClick={() => this.toggleEmployeeModal()}></i>
+          <i className="fa fa-trash-alt delete"></i>
+        </div>
+      }
 
     ],
-    rows: complaints.filter(complaint => complaint.resolved === false)
+    rows: employees,
+
   });
   if (isLoading) {
     return (<Loading />);
@@ -66,7 +69,7 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
       <div>
         <div className="row">
           <div className="col-12 container-fluid">
-            <h2 className="feature-heading ">Unresolved Complaints</h2>
+            <h2 className="feature-heading ">Employees</h2>
             <hr className="feature-line" />
           </div>
         </div>
@@ -74,6 +77,7 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
           <MDBDataTableV5
             hover
             responsiveMd
+            bordered
             entriesOptions={[5, 20, 25]}
             entries={5}
             pagesAmount={4}

@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, Label, Col, Row, FormGroup, FormFeedback } from 'reactstrap';
 
-class AddEmployee extends Component {
+class EmployeeUpdateForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            mobile: '',
-            gender: '',
-            email: '',
-            address: '',
-            designation: '',
-            salary: '',
-            joinDate: '',
-            eid: '',
+            id: this.props.id,
+            name: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.employeeName,
+            mobile: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.mobileNo,
+            gender: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.gender,
+            email: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.email,
+            address: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.address,
+            designation: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.designation,
+            salary: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.salary,
+            joinDate: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.joiningDate.split('T')[0],
+            eid: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.eid,
             touched: {
                 name: false,
                 mobile: false,
@@ -30,10 +31,11 @@ class AddEmployee extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.postEmployee(this.state);
-
+        this.props.updateEmployee(
+            this.state
+        );
     }
-    
+
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -43,13 +45,14 @@ class AddEmployee extends Component {
             [name]: value
         });
     }
+    
     handleBlur = (field) => (evt) => {
         this.setState({
             touched: { ...this.state.touched, [field]: true }
         });
     }
 
-    validate = (name, mobile, gender, email, address, designation, salary, joinDate, eid) => {
+    validate = (name, mobile, gender, email , address, designation, salary, joinDate, eid) => {
         const errors = {
             name: '',
             email: '',
@@ -70,19 +73,19 @@ class AddEmployee extends Component {
             errors.name = 'Name should be of minimum length of 3 characters';
         else if (this.state.touched.name && name.length > 30)
             errors.name = 'Name should not be greater than 30 characters';
-        if (this.state.touched.email && email.length < 3)
-            errors.email = 'Employee email should contain a minimum of 3 characters';
+        if (this.state.touched.type && email.length < 3)
+            errors.email = 'Email should contain a minimum of 3 characters';
         if (this.state.touched.gender && gender.length < 3)
             errors.gender = 'Please select the gender';
-        if (this.state.touched.address && address.length < 10)
-            errors.address = 'Address should contain a minimum of 10 characters';
+        if (this.state.touched.address && address.length < 20)
+            errors.address = 'Address should contain a minimum of 20 characters';
         if (this.state.touched.designation && designation.length < 3)
             errors.designation = 'Designation should contain a minimum of 3 characters';
         if (this.state.touched.salary && salary.length === 0)
             errors.salary = 'Please Enter the salary';
         if (this.state.touched.joinDate && joinDate.length === 0)
             errors.joinDate = 'Specify Joining Date';
-        if (this.state.touched.eid && eid.length < 3)
+        if (this.state.touched.eid && eid.length < 4)
             errors.eid = 'Enter a valid Employee Id';
 
         return errors;
@@ -96,10 +99,11 @@ class AddEmployee extends Component {
             <div>
                 <div className="row">
                     <div className="col-12 container-fluid">
-                        <h2 className="feature-heading ">Add New Employee</h2>
+                        <h2 className="feature-heading ">Update Employee Details</h2>
                         <hr className="feature-line" />
                     </div>
                 </div>
+
                 <div >
                     <Form className="myForm" onSubmit={this.handleSubmit}>
                         <Row form>
@@ -128,7 +132,7 @@ class AddEmployee extends Component {
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="email">Email</Label>
-                                    <Input required type="email" name="email" id="email" value={this.state.email} placeholder="Email"
+                                    <Input required type="email" name="email" id="email" value={this.state.email} placeholder="Email" className="form-control"
                                         onBlur={this.handleBlur('email')} onChange={this.handleInputChange}
                                         valid={errors.email === ''} invalid={errors.email !== ''} />
                                     <FormFeedback>{errors.email}</FormFeedback>
@@ -177,7 +181,7 @@ class AddEmployee extends Component {
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="mobile">Mobile No.</Label>
-                                    <Input required type="number" name="mobile" id="mobile" value={this.state.mobile}
+                                    <Input required type="text" name="mobile" id="mobile" value={this.state.mobile}
                                         onBlur={this.handleBlur('mobile')} onChange={this.handleInputChange}
                                         valid={errors.mobile === ''} invalid={errors.mobile !== ''} placeholder="Mobile No." />
                                     <FormFeedback>{errors.mobile}</FormFeedback>
@@ -195,8 +199,8 @@ class AddEmployee extends Component {
                         </Row>
                         <FormGroup row>
                             <Col md={{ size: 10 }}>
-                                <Button type="submit" color="primary">
-                                    Save
+                                <Button type="submit" color="secondary">
+                                    Update
                                     </Button>
                             </Col>
                         </FormGroup>
@@ -207,4 +211,4 @@ class AddEmployee extends Component {
     }
 }
 
-export default AddEmployee;
+export default EmployeeUpdateForm;

@@ -39,14 +39,13 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
       {
         label: 'Complaint',
         field: 'description',
-        width: 350,
+        width: 250,
       },
       {
         label: 'Actions',
         field: 'actions',
         default: <div>
           <i className="fa-sharp fa-light fa-badge-check" onClick={() => this.toggleResolve}></i>
-          {/* //</div> onClick={() => this.toggleResolve}></i> */}
           <i className="fa fa-trash-alt delete"></i>
         </div>,
         width: 100,

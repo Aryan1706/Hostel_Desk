@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
 import User from '../model/userModel.js'
 import bcrypt from 'bcryptjs'
+import { errorHandler } from '../middleware/errorMiddleware.js'
 
 // @desc    Add a Admin
 // @route   POST /users/addAdmin

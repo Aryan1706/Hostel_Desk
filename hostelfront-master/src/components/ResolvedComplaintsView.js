@@ -2,7 +2,7 @@ import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 import { Loading } from './LoadingComponent';
 
-export default function UnresolvedComplaints({ complaints, isLoading, errMess }) {
+export default function ResolvedComplaints({ complaints, isLoading, errMess }) {
 
   const [datatable] = React.useState({
     columns: [
@@ -19,7 +19,7 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
         label: 'Complaint Date',
         field: 'date',
         width: 180,
-        sort : 'asc',
+        
       },
       {
         label: 'Room No.',
@@ -32,6 +32,11 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
         width: 130,
       },
       {
+        label: 'Resolved Date',
+        field: 'resolvedDate',
+        width: 180,
+      },
+      {
         label: 'Title',
         field: 'title',
         width: 100,
@@ -39,21 +44,20 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
       {
         label: 'Complaint',
         field: 'description',
-        width: 350,
+        width: 250,
       },
       {
         label: 'Actions',
         field: 'actions',
         default: <div>
-          <i className="fa-sharp fa-light fa-badge-check" onClick={() => this.toggleResolve}></i>
-          {/* //</div> onClick={() => this.toggleResolve}></i> */}
+          <i className="fa fa-check-circle resolve mr-2" onClick={() => this.toggleResolve}></i>
           <i className="fa fa-trash-alt delete"></i>
         </div>,
         width: 100,
       },
 
     ],
-    rows: complaints.filter(complaint => complaint.resolved === false)
+    rows: complaints.filter(complaint => complaint.resolved === true)
   });
   if (isLoading) {
     return (<Loading />);
@@ -66,7 +70,7 @@ export default function UnresolvedComplaints({ complaints, isLoading, errMess })
       <div>
         <div className="row">
           <div className="col-12 container-fluid">
-            <h2 className="feature-heading ">Unresolved Complaints</h2>
+            <h2 className="feature-heading ">Resolved Complaints</h2>
             <hr className="feature-line" />
           </div>
         </div>

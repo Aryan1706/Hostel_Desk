@@ -15,14 +15,13 @@ class Bar extends Component {
             touched: {
                 username: false,
                 password: false
-            },
+            }
         };
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.toggleModal1 = this.toggleModal1.bind(this);
         this.handleLogoutClick = this.handleLogoutClick.bind(this);
     }
-
 
     toggleNav() {
         this.setState({
@@ -90,9 +89,6 @@ class Bar extends Component {
         } else {
             button = <LoginButton />;
         }
-
-        const showRegistration = !isLoggedIn
-
         return (
             <div>
                 <Navbar light expand="md" className="me">
@@ -108,25 +104,20 @@ class Bar extends Component {
                                     <span className="fa fa-address-book fa-lg"></span> Contact Us
                                 </Link>
                             </li>
-                            {/* <li className="nav-item">
-                                {button}
-                            </li> */}
                             <li className="nav-item">
-                            {isLoggedIn ? <LogoutButton onClick={this.handleLogoutClick} /> : <LoginButton />}
+                                {button}
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link me" to="/login">
                                     <span className="fa fa-tachometer-alt"></span>Go to DashBoard
                                 </Link>
                             </li>
-        
-                            {showRegistration && (
-                                <li className="nav-item">
-                                    <Link className="nav-link me" to="/registration">
-                                    <i className="fa fa-address-card" aria-hidden="true"></i>Registration
-                                    </Link>
-                                </li>)}
-                                
+                            
+                            {!isLoggedIn && (<li className="nav-item">
+                                <Link className="nav-link me" to="/registration">
+                                <i className="fa fa-address-card" aria-hidden="true"></i>Registration
+                                </Link>
+                            </li>)}
                         </ul>
                     </div>
                 </Navbar>

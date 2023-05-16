@@ -37,6 +37,6 @@ app.use('/notices', noticeRouter);
 app.use('/rooms', roomRouter);
 app.use('/seats', allocationRouter);
 app.use('/complaints', complaintRouter);
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on Port ${port}`))

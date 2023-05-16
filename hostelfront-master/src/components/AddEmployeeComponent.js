@@ -195,7 +195,7 @@ class AddEmployee extends Component {
                         </Row>
                         <FormGroup row>
                             <Col md={{ size: 10 }}>
-                                <Button type="submit" color="primary">
+                                <Button type="submit" color="secondary">
                                     Save
                                     </Button>
                             </Col>
